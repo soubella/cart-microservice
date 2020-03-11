@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 public class CartItem {
     @Id
-    @GeneratedValue
     private Long productId;
     private int quantity;
     @ManyToOne

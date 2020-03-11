@@ -49,10 +49,10 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findById(cartId).get();
         List<CartItem> cartItems = cartItemRepository.findAllByCart(cart);
         RestTemplate restTemplate = new RestTemplate();
-        double totalPrice=0D;
+        double totalPrice=0;
         for (CartItem cartItem:cartItems) {
             Product result = restTemplate.getForObject(uri+cartItem.getProductId(), Product.class);
-            totalPrice+=result.getPrice();
+            totalPrice+=result.getPrice()*cartItem.getQuantity();
         }
         cart.setTotalPrice(totalPrice);
         cartRepository.save(cart);
